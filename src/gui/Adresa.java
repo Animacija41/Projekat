@@ -1,3 +1,4 @@
+package gui;
 public class Adresa {
 		private String ulica;
 		private int broj;

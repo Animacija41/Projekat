@@ -1,3 +1,4 @@
+package gui;
 enum RADNO_MESTO{MODELATOR, RIGER, ANIMATOR, ILUSTRATOR};
 
 
