@@ -16,14 +16,14 @@ import javax.swing.text.DateFormatter;
  *https://stackoverflow.com/questions/3035880/how-can-i-create-a-bar-in-the-bottom-of-a-java-app-like-a-status-bar
  * VEZBE_06_Date-enum-kolekcije-sortiranje.doc
  */
-public class MyStratusBar extends JLabel{
+public class MyStatusBar extends JLabel{
 	 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 2435356;
 
 	/** Creates a new instance of StatusBar */
-    public MyStratusBar() {
+    public MyStatusBar() {
         super();
         super.setPreferredSize(new Dimension(100, 16));
         

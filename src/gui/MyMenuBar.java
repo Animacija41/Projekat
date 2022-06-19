@@ -14,7 +14,7 @@ import javax.swing.JMenuItem;
  * @author matov
  *
  */
-public class MyMenyBar extends JMenuBar{
+public class MyMenuBar extends JMenuBar{
 	
 
 		/**
@@ -22,22 +22,22 @@ public class MyMenyBar extends JMenuBar{
 		 */
 		private static final long serialVersionUID = -7863806568418316202L;
 
-		public MyMenyBar() {
+		public MyMenuBar() {
 
 			JMenu file = new JMenu("File");
 			JMenu miNew = new JMenu("New");
-			JMenuItem miProject = new JMenuItem("Project");
-			JMenuItem miPackage = new JMenuItem("Package");
-			miNew.add(miProject);
+			JMenuItem miZaposleni = new JMenuItem("Zaposleni");
+			JMenuItem miSoftver = new JMenuItem("Softver");
+			miNew.add(miZaposleni);
 			miNew.addSeparator();
-			miNew.add(miPackage);
+			miNew.add(miSoftver);
 
 			JMenu miOpen = new JMenu("Open");
-			JMenuItem miProject1 = new JMenuItem("Project");
-			JMenuItem miPackage1 = new JMenuItem("Package");
-			miOpen.add(miProject1);
+			JMenuItem miZaposleni1 = new JMenuItem("Zaposleni");
+			JMenuItem miSoftver1 = new JMenuItem("Softver");
+			miOpen.add(miZaposleni1);
 			miOpen.addSeparator();
-			miOpen.add(miPackage1);
+			miOpen.add(miSoftver1);
 			
 			
 			JMenuItem miExit = new JMenuItem("Exit");

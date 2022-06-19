@@ -38,7 +38,7 @@ class MainFrame extends JFrame{
 		 Image img = kit.getImage("images/iko.jpg");
 		 setIconImage(img);
 		 //Podesavamo naslov
-		 setTitle("My Second GUI App");
+		 setTitle("Animacije");
 		 //Postavljamo akciju pri zatvaranju prozora
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 
@@ -50,18 +50,18 @@ class MainFrame extends JFrame{
 		 
 			// kreiranje naslednika klase JMenuBar i njeno postavljanje u glavni prozor
 			// aplikacije
-			MyMenyBar menu = new MyMenyBar();
+			MyMenuBar menu = new MyMenuBar();
 			this.setJMenuBar(menu);
 
 			// kreiramo instancu klase Toolbar
 			MyToolbar toolbar = new MyToolbar();
 			// dodajemo u Frame naš Toolbar, klasa BorderLayout se odnosi na rad sa
 			// prostorim rasporedom
-			// komponenti, za sada je dovoljno znati da na ovaj način Toolbar se postavlja
+			// komponenti, za sada je dovoljno znati da na ovaj nacin Toolbar se postavlja
 			// na vrh glavne forme
 			add(toolbar, BorderLayout.NORTH);
 
-			 MyStratusBar MyStratusBar = new MyStratusBar();
+			 MyStatusBar MyStratusBar = new MyStatusBar();
 			 getContentPane().add(MyStratusBar,BorderLayout.SOUTH);
 			
 			

@@ -17,8 +17,8 @@ public class MyToolbar  extends JToolBar{
 	 */
 	private static final long serialVersionUID = 1L;
 	public MyToolbar() {
-		// u konstruktor nadklase, tj klse JToolbar prosleđuje
-		// se orijentacija toolbar-a, moguća i sa konstantom: SwingConstants.VERTICAL
+		// u konstruktor nadklase, tj klse JToolbar prosledjuje
+		// se orijentacija toolbar-a, moguca i sa konstantom: SwingConstants.VERTICAL
 
 		super(SwingConstants.HORIZONTAL);
 		JButton btnNew = new JButton();
@@ -35,12 +35,12 @@ public class MyToolbar  extends JToolBar{
 
 		addSeparator();
 
-		JToggleButton tglBtnBold = new JToggleButton();
-		tglBtnBold.setToolTipText("Bold");
-		tglBtnBold.setIcon(new ImageIcon("ikonice/recycle-bin.png"));
-		add(tglBtnBold);
+		JToggleButton tglBtnDelete = new JToggleButton();
+		tglBtnDelete.setToolTipText("Delete");
+		tglBtnDelete.setIcon(new ImageIcon("ikonice/recycle-bin.png"));
+		add(tglBtnDelete);
 
-		// toolbar je pokretljiv, probati i sa statičnim toolbarom
+		// toolbar je pokretljiv, probati i sa staticnim toolbarom
 		setFloatable(true);
 		setBackground(new Color(255, 255, 204));
 
