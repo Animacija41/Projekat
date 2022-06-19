@@ -2,6 +2,7 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -22,12 +23,35 @@ public class MyMenuBar extends JMenuBar{
 		 */
 		private static final long serialVersionUID = -7863806568418316202L;
 
-		public MyMenuBar() {
+		public MyMenuBar(final JFrame parent) {
 
 			JMenu file = new JMenu("File");
 			JMenu miNew = new JMenu("New");
-			JMenuItem miZaposleni = new JMenuItem("Zaposleni");
+JMenuItem miZaposleni = new JMenuItem("Zaposleni");
+			
+			miZaposleni.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					
+					SimpleDialogZaposleni dialog = new SimpleDialogZaposleni(parent, "Dialog Zaposleni", true);
+					dialog.setVisible(true);
+
+				}
+			});
+			
 			JMenuItem miSoftver = new JMenuItem("Softver");
+			miSoftver.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					
+					SimpleDialogSoftver dialog = new SimpleDialogSoftver(parent, "Dialog Softver", true);
+					dialog.setVisible(true);
+
+				}
+			});
+			
 			miNew.add(miZaposleni);
 			miNew.addSeparator();
 			miNew.add(miSoftver);

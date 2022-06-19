@@ -50,11 +50,11 @@ class MainFrame extends JFrame{
 		 
 			// kreiranje naslednika klase JMenuBar i njeno postavljanje u glavni prozor
 			// aplikacije
-			MyMenuBar menu = new MyMenuBar();
+			MyMenuBar menu = new MyMenuBar(this);
 			this.setJMenuBar(menu);
 
 			// kreiramo instancu klase Toolbar
-			MyToolbar toolbar = new MyToolbar();
+			MyToolbar toolbar = new MyToolbar(this);
 			// dodajemo u Frame naš Toolbar, klasa BorderLayout se odnosi na rad sa
 			// prostorim rasporedom
 			// komponenti, za sada je dovoljno znati da na ovaj nacin Toolbar se postavlja
