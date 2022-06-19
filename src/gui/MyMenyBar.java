@@ -1,4 +1,7 @@
 package gui;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -43,6 +46,12 @@ public class MyMenyBar extends JMenuBar{
 			file.addSeparator();
 			file.add(miOpen);
 			file.addSeparator();
+			
+			miExit.addActionListener (new ActionListener () {
+				 public void actionPerformed (ActionEvent e) {
+				  System.exit(0);
+				 }
+			});
 			file.add(miExit);
 			
 			
