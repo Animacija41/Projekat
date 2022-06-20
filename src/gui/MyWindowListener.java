@@ -24,7 +24,7 @@ public class MyWindowListener implements WindowListener {
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		JFrame frame = (JFrame) arg0.getComponent();
-		int code = JOptionPane.showConfirmDialog(frame, "Da li ste sigurni da želite da zatvorite aplikaciju?",
+		int code = JOptionPane.showConfirmDialog(frame, "Da li ste sigurni da zelite da zatvorite aplikaciju?",
 				"Zatvaranje aplikacije?", JOptionPane.YES_NO_OPTION);
 		if (code != JOptionPane.YES_OPTION) {
 			frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
