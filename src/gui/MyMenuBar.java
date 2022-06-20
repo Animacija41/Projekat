@@ -96,6 +96,18 @@ JMenuItem miZaposleni = new JMenuItem("Zaposleni");
 			
 			JMenu help = new JMenu("Help");
 			JMenuItem miabout = new JMenuItem("About");
+			miabout.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					
+					SimpleDialogAbout dialog = new SimpleDialogAbout(parent, "About", true);
+					dialog.setVisible(true);
+
+				}
+			});
+			
+			
 			
 			help.add(miabout);
 			help.addSeparator();

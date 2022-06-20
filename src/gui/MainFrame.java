@@ -41,7 +41,7 @@ class MainFrame extends JFrame{
 		 setTitle("Animacije");
 		 //Postavljamo akciju pri zatvaranju prozora
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 
+		 addWindowListener(new MyWindowListener());
 		 
 		// kreiramo jedan panel i dodajemo ga u JFrame
 			JPanel panel = new JPanel();
