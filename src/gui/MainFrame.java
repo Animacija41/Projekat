@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -35,6 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -51,12 +53,27 @@ class MainFrame extends JFrame{
 	/**
 	 * 
 	 */
+	private JTextField txtPrezime = new JTextField();
+	private JTextField txtIme = new JTextField();
+	private JTextField txtAdresa = new JTextField();
+	private JTextField txtAlati = new JTextField();
+	private JTextField txtEmail = new JTextField();
+	private JTextField txtDatumRodjenja=new JTextField();
+	private JTextField txtJMBG=new JTextField();
+	private JTextField txtRadnoMesto = new JTextField();
+	private String prezimeData;
+	private String imeData;
+	private String jmbgData;
+	private String datumRData;
+	private String emailData;
+	private String adresaData;
+	private String alatiData;
+	private String radnoMestoData;
 	private DefaultTableModel model1 = new DefaultTableModel(100,8);
 	private DefaultTableModel model2 = new DefaultTableModel(100,6);
 	private JTable table1 = new JTable(model1);
 	private JTable table2 = new JTable(model2);
 	
-	Zaposleni zaposlen=new Zaposleni();
 	ZaposleniKontroler kontroler=new ZaposleniKontroler();
 	public MainFrame() {
 		 Toolkit kit = Toolkit.getDefaultToolkit();
@@ -95,6 +112,8 @@ class MainFrame extends JFrame{
 			 MyStatusBar MyStratusBar = new MyStatusBar();
 			 getContentPane().add(MyStratusBar,BorderLayout.SOUTH);
 			 
+			 table1.setDefaultEditor(Object.class, null);
+			 table2.setDefaultEditor(Object.class, null);
 			 JTabbedPane tabs=new JTabbedPane();
 		  		tabs.addTab("zaposleni",null,table1);
 		  		tabs.addTab("softver",null,table2);
@@ -121,10 +140,9 @@ class MainFrame extends JFrame{
 
 				JLabel lblPrezime = new JLabel("Prezime*:");
 				lblPrezime.setPreferredSize(dim);
-				JTextField txtPrezime = new JTextField();
+				
 				txtPrezime.setPreferredSize(dim);
 				txtPrezime.setName("txtPrezime");
-				zaposlen.setPrezime(txtPrezime.getText());
 				txtPrezime.setBackground(Color.GRAY);
 				txtPrezime.addFocusListener(focusListener);
 
@@ -135,10 +153,9 @@ class MainFrame extends JFrame{
 				panIme.setBackground(new Color(254, 254, 208));
 				JLabel lblIme = new JLabel("Ime:");
 				lblIme.setPreferredSize(dim);
-				JTextField txtIme = new JTextField();
+				
 				txtIme.setBackground(Color.GRAY);
 				txtIme.setName("txtIme");
-				zaposlen.setIme(txtIme.getText());
 				txtIme.addFocusListener(focusListener);
 				txtIme.setPreferredSize(dim);
 				panIme.add(lblIme);
@@ -148,7 +165,7 @@ class MainFrame extends JFrame{
 				panAdresa.setBackground(new Color(254, 254, 208));
 				JLabel lblAdresa = new JLabel("Adresa:");
 				lblAdresa.setPreferredSize(dim);
-				JTextField txtAdresa = new JTextField();
+				
 				txtAdresa.setBackground(Color.GRAY);
 				txtAdresa.setName("txtAdresa");
 				txtAdresa.addFocusListener(focusListener);
@@ -160,10 +177,9 @@ class MainFrame extends JFrame{
 				panEmail.setBackground(new Color(254, 254, 208));
 				JLabel lblEmail = new JLabel("Email:");
 				lblEmail.setPreferredSize(dim);
-				JTextField txtEmail = new JTextField();
+				
 				txtEmail.setBackground(Color.GRAY);
 				txtEmail.setName("txtAdresa");
-				zaposlen.setEmail(txtEmail.getText());
 				txtEmail.addFocusListener(focusListener);
 				txtEmail.setPreferredSize(dim);
 				panEmail.add(lblEmail);
@@ -173,7 +189,7 @@ class MainFrame extends JFrame{
 				panAlati.setBackground(new Color(254, 254, 208));
 				JLabel lblAlati = new JLabel("Alati:");
 				lblAlati.setPreferredSize(dim);
-				JTextField txtAlati = new JTextField();
+				
 				txtAlati.setBackground(Color.GRAY);
 				txtAlati.setName("txtAlati");
 				txtAlati.addFocusListener(focusListener);
@@ -185,7 +201,7 @@ class MainFrame extends JFrame{
 				panRadnoMesto.setBackground(new Color(254, 254, 208));
 				JLabel lblRadnoMesto = new JLabel("RadnoMesto:");
 				lblRadnoMesto.setPreferredSize(dim);
-				JTextField txtRadnoMesto = new JTextField();
+				
 				txtRadnoMesto.setBackground(Color.GRAY);
 				txtRadnoMesto.setName("txtRadnoMesto");
 				txtRadnoMesto.addFocusListener(focusListener);
@@ -201,7 +217,7 @@ class MainFrame extends JFrame{
 			  	
 			  	JLabel lblJMBG=new JLabel("JMBG:");
 			  	lblJMBG.setPreferredSize(dim);
-			  	JTextField txtJMBG=new JTextField();
+			  	
 			  	txtJMBG.setBackground(Color.GRAY);
 			  	txtJMBG.setPreferredSize(dim);
 			  	txtJMBG.setName("txtJMBG");
@@ -215,7 +231,7 @@ class MainFrame extends JFrame{
 			  	
 			  	JLabel lblDatumRodjenja=new JLabel("Datum Rodjenja:");
 			  	lblDatumRodjenja.setPreferredSize(dim);
-			  	JTextField txtDatumRodjenja=new JTextField();
+			  	
 			  	txtDatumRodjenja.setBackground(Color.GRAY);
 			  	txtDatumRodjenja.setPreferredSize(dim);
 			  	txtDatumRodjenja.setName("txtDatumRodjenja");
@@ -264,12 +280,57 @@ class MainFrame extends JFrame{
 						btnOk.setPreferredSize(new Dimension(75,25));
 						btnOk.addActionListener (new ActionListener () {
 							 public void actionPerformed (ActionEvent e) {
-								
+								 String prezimeData = txtPrezime.getText();
+									String imeData = txtIme.getText();
+									String jmbgData = (txtJMBG.getText());
+									String datumRData = txtDatumRodjenja.getText();
+									String emailData = txtEmail.getText();
+									String adresaData = txtAdresa.getText();
+									String alatiData = txtAlati.getText();
+									String radnoMestoData = txtRadnoMesto.getText();
+									
+									Zaposleni radnik = new Zaposleni(prezimeData, imeData, jmbgData, datumRData, emailData, new Adresa(), new Softver(), radnoMestoData);
+									
+									 try {
+										kontroler.addradnik(radnik);
+									} catch (Exception e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									 System.out.println(kontroler.getAllZaposleni());
+									 
+										 
+										 model1.setValueAt(radnik.getIme(), kontroler.getAllZaposleni().size()-1, 0);
+										 model1.setValueAt(radnik.getPrezime(), kontroler.getAllZaposleni().size()-1, 1);	
+										 model1.setValueAt(radnik.getJMBG(), kontroler.getAllZaposleni().size()-1, 2);
+										 model1.setValueAt(radnik.getDatum(), kontroler.getAllZaposleni().size()-1, 3);
+										 model1.setValueAt(radnik.getEmail(), kontroler.getAllZaposleni().size()-1, 4);
+										 model1.setValueAt(radnik.getAdresa(), kontroler.getAllZaposleni().size()-1, 5);
+										 model1.setValueAt(radnik.getSoftver(), kontroler.getAllZaposleni().size()-1, 6);
+										 model1.setValueAt(radnik.getRadnoMesto(), kontroler.getAllZaposleni().size()-1, 7);
+										 
+									dispose();
+									txtPrezime.setText("");
+									txtIme.setText("");
+									txtJMBG.setText("");
+									txtDatumRodjenja.setText("");
+									txtEmail.setText("");
+									txtAdresa.setText("");
+									txtAlati.setText("");
+									txtRadnoMesto.setText("");
+									
+									
+								 
 							 
 							 }
 						});
 
 						JButton btnCancel=new JButton("Cancel");
+						btnCancel.addActionListener (new ActionListener () {
+							 public void actionPerformed (ActionEvent e) {
+								dispose();
+							 }
+						});
 						btnCancel.setPreferredSize(new Dimension(75,25));
 						statusBar.add(btnOk);
 						
@@ -351,7 +412,11 @@ class MainFrame extends JFrame{
 
 				JMenuItem miedit = new JMenuItem("Edit");
 				JMenuItem midelete = new JMenuItem("Delete");
-				
+				midelete.addActionListener (new ActionListener () {
+					 public void actionPerformed (ActionEvent e) {
+						DialogDelete dijalog=new DialogDelete(parent, true);
+					 }
+				});
 				edit.add(miedit);
 				edit.addSeparator();
 				edit.add(midelete);
@@ -432,7 +497,22 @@ class MainFrame extends JFrame{
 
 			}
 		}
-
+		public class DialogDelete extends JOptionPane{
+			public DialogDelete(final JFrame parent, boolean modal) {
+				setSize(100, 200);
+				setLocationRelativeTo(parent);
+				int dijalog= JOptionPane.showConfirmDialog(parent, "Da li ste sigurni da zelite da obrisete zaposlenog/softver?", "Confirm Deletion",  JOptionPane.OK_CANCEL_OPTION);
+				if (dijalog != JOptionPane.OK_OPTION) {
+					parent.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+				} else {
+					
+						model1.removeRow(table1.getSelectedRow());
+						
+						
+					 
+				}
+			}
+		}
 }
 	
 

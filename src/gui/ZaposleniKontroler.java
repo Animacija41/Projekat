@@ -36,7 +36,7 @@ public class ZaposleniKontroler {
     }
     
     public Zaposleni addradnik(Zaposleni radnik) throws Exception {
-        boolean isExists = Zaposleni.stream().anyMatch(el -> radnik.getJMBG() == el.getJMBG());
+        boolean isExists = Zaposleni.stream().anyMatch(el -> radnik.getJMBG().equals(el.getJMBG()));
         
         if (isExists) {
             throw new Exception("Already exists");
@@ -48,8 +48,8 @@ public class ZaposleniKontroler {
     }
     
     public Zaposleni updateradnik(Zaposleni radnik) throws Exception {
-    	Zaposleni radnikCurrent = Zaposleni.stream().filter(el -> (radnik.getJMBG() == el.getJMBG())).findAny().orElse(null);
-        int index = IntStream.range(0, Zaposleni.size()).filter(idx -> Zaposleni.get(idx).getJMBG() == (radnik.getJMBG())).findFirst().orElse(-1);
+    	Zaposleni radnikCurrent = Zaposleni.stream().filter(el -> (radnik.getJMBG().equals(el.getJMBG()))).findAny().orElse(null);
+        int index = IntStream.range(0, Zaposleni.size()).filter(idx -> Zaposleni.get(idx).getJMBG().equals(radnik.getJMBG())).findFirst().orElse(-1);
         
         if (index < 0) {
             throw new Exception("Not found");

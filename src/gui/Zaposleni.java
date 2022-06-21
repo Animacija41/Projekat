@@ -1,29 +1,29 @@
 package gui;
-enum RADNO_MESTO{MODELATOR, RIGER, ANIMATOR, ILUSTRATOR};
+
 
 
 public class Zaposleni {
 	private String ime;
 	private String prezime;
-	private long jmbg;
+	private String jmbg;
 	private String datum;
 	private String email;
 	private Adresa adresa;
 	private Softver softver;
-	private RADNO_MESTO radnoMesto;
+	private String radnoMesto;
 	
 	public Zaposleni() {
 		this.ime = "";
 		this.prezime = "";
-		this.jmbg = 0;
+		this.jmbg = "";
 		this.datum = "";
 		this.email = "";
 		this.adresa = new Adresa();
 		this.softver = new Softver();
-		this.radnoMesto = RADNO_MESTO.MODELATOR;
+		this.radnoMesto ="";
 	}
 	
-	public Zaposleni(String ime, String prezime, long jmbg, String datum, String email, Adresa adresa, Softver sa, RADNO_MESTO rm) {
+	public Zaposleni(String ime, String prezime, String jmbg, String datum, String email, Adresa adresa, Softver sa, String rm) {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.jmbg = jmbg;
@@ -50,10 +50,10 @@ public class Zaposleni {
 	}
 	
 	
-	public long getJMBG() {
+	public String getJMBG() {
 		return this.jmbg;
 	}
-	public void setJMBG(long jmbg) {
+	public void setJMBG(String jmbg) {
 		this.jmbg = jmbg;
 	}
 	
@@ -90,11 +90,15 @@ public class Zaposleni {
 	}
 	
 	
-	public RADNO_MESTO getRadnoMesto() {
+	public String getRadnoMesto() {
 		return this.radnoMesto;
 	}
-	public void setRadnoMesto(RADNO_MESTO rm) {
+	public void setRadnoMesto(String rm) {
 		this.radnoMesto = rm;
 	}
-	
+	@Override
+	public String toString() {
+		return "Zaposleni [ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", datum=" + datum + ", email="
+				+ email + ", adresa=" + adresa + ", softver=" + softver + ", radnoMesto=" + radnoMesto + "]";
+	}
 }
