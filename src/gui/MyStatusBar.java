@@ -4,12 +4,12 @@
 package gui;
 
 import java.awt.Dimension;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.FormatStyle;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 
 import javax.swing.JLabel;
-import javax.swing.text.DateFormatter;
+
 
 /**
  * @author matov
@@ -27,9 +27,10 @@ public class MyStatusBar extends JLabel{
         super();
         super.setPreferredSize(new Dimension(100, 16));
         
-        LocalDate curentLocalDate = LocalDate.now();
+        SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
+        Date datum=new Date();
         
-		setMessage("Date: " + curentLocalDate);
+		setMessage("Datum: " + format.format(datum));
       
     }
 

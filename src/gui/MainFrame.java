@@ -37,9 +37,9 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-
+import javax.swing.table.DefaultTableModel;
 import gui.MainFrame.SimpleDialogZaposleni;
-import gui.MainFrame.Tabela;
+
 import gui.MainFrame.ZaposleniPanel; 
 class MainFrame extends JFrame{
 
@@ -47,10 +47,15 @@ class MainFrame extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * 
 	 */
+	private DefaultTableModel model1 = new DefaultTableModel(100,8);
+	private DefaultTableModel model2 = new DefaultTableModel(100,6);
+	private JTable table1 = new JTable(model1);
+	private JTable table2 = new JTable(model2);
+	
 	Zaposleni zaposlen=new Zaposleni();
 	ZaposleniKontroler kontroler=new ZaposleniKontroler();
 	public MainFrame() {
@@ -89,25 +94,16 @@ class MainFrame extends JFrame{
 
 			 MyStatusBar MyStratusBar = new MyStatusBar();
 			 getContentPane().add(MyStratusBar,BorderLayout.SOUTH);
-			
-			 Tabela tabela=new Tabela(); 
+			 
+			 JTabbedPane tabs=new JTabbedPane();
+		  		tabs.addTab("zaposleni",null,table1);
+		  		tabs.addTab("softver",null,table2);
+		  		
+		  		add(tabs);
 		 }
 	
-	  public class Tabela {	
-			 
-		public Tabela() {
-				
-		         JTable table1 = new JTable();
-		         JTable table2 = new JTable();
-		         JTabbedPane tabs=new JTabbedPane();
-		         tabs.addTab("zaposleni", null, table1);
-		         tabs.addTab("softveri", null, table2);
-		         add(tabs);
-			  
-		  }
-		   
-	
-	 }
+	  		
+	  		
 	  public class ZaposleniPanel extends JPanel{
 			private static final long serialVersionUID = 7826375022683547554L;
 
