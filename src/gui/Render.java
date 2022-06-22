@@ -56,4 +56,11 @@ public class Render {
 	public void setObjekat(String objekat) {
 		this.objekat = objekat;
 	}
+
+	@Override
+	public String toString() {
+		return "Render [naziv=" + naziv + ", materijal=" + materijal + ", kamera=" + kamera + ", svetlo=" + svetlo
+				+ ", objekat=" + objekat + "]";
+	}
+	
 }

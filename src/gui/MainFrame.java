@@ -55,6 +55,10 @@ class MainFrame extends JFrame{
 	 * 
 	 */
 	private JTextField txtRender = new JTextField();
+	private JTextField txtMaterijal = new JTextField();
+	private JTextField txtKamera = new JTextField();
+	private JTextField txtSvetlo = new JTextField();
+	private JTextField txtObjekat = new JTextField();
 	private JTextField txtAlatizaAnimaciju = new JTextField();
 	private JTextField txtFormatFajla = new JTextField();
 	private JTextField txtModifikatori = new JTextField();
@@ -74,7 +78,7 @@ class MainFrame extends JFrame{
 	private JTextField txtJMBG=new JTextField();
 	private JTextField txtRadnoMesto = new JTextField();
 	private DefaultTableModel model1 = new DefaultTableModel(100,10);
-	private DefaultTableModel model2 = new DefaultTableModel(100,8);
+	private DefaultTableModel model2 = new DefaultTableModel(100,12);
 	private JTable table1 = new JTable(model1);
 	private JTable table2 = new JTable(model2);
 	JTabbedPane tabs=new JTabbedPane();
@@ -632,7 +636,7 @@ class MainFrame extends JFrame{
 				setSize(100, 200);
 				setLocationRelativeTo(parent);
 				int dijalog2= JOptionPane.showConfirmDialog(parent, "Da li ste sigurni da zelite da obrisete softver?", "Confirm Deletion",  JOptionPane.OK_CANCEL_OPTION);
-				String name=table2.getValueAt(table2.getSelectedRow(),1).toString();
+				String name=table2.getValueAt(table2.getSelectedRow(),0).toString();
 				
 				if (dijalog2 != JOptionPane.OK_OPTION) {
 					parent.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -800,17 +804,6 @@ class MainFrame extends JFrame{
 					panNazivSoftvera.add(lblNazivSoftvera);
 					panNazivSoftvera.add(txtNazivSoftvera);
 
-					/**JPanel panCetkice = new JPanel(new FlowLayout(FlowLayout.LEFT));
-					panCetkice.setBackground(new Color(254, 254, 208));
-					JLabel lblCetkice = new JLabel("Cetkice:");
-					lblCetkice.setPreferredSize(dim);
-					
-					txtCetkice.setBackground(Color.GRAY);
-					txtCetkice.setName("txtCetkice");
-					txtCetkice.addFocusListener(focusListener);
-					txtCetkice.setPreferredSize(dim);
-					panCetkice.add(lblCetkice);
-					panCetkice.add(txtCetkice);*/
 					
 					JPanel panNazivCetkice = new JPanel(new FlowLayout(FlowLayout.LEFT));
 					panNazivCetkice.setBackground(new Color(254, 254, 208));
@@ -897,6 +890,56 @@ class MainFrame extends JFrame{
 					panRender.add(lblRender);
 					panRender.add(txtRender);
 					
+					JPanel panMaterijal = new JPanel(new FlowLayout(FlowLayout.LEFT));
+					panMaterijal.setBackground(new Color(254, 254, 208));
+					JLabel lblMaterijal = new JLabel("Materijal:");
+					lblMaterijal.setPreferredSize(dim);
+					
+					txtMaterijal.setBackground(Color.GRAY);
+					txtMaterijal.setName("txtMaterijal");
+					txtMaterijal.addFocusListener(focusListener);
+					txtMaterijal.setPreferredSize(dim);
+					panMaterijal.add(lblMaterijal);
+					panMaterijal.add(txtMaterijal);
+					
+					JPanel panKamera = new JPanel(new FlowLayout(FlowLayout.LEFT));
+					panKamera.setBackground(new Color(254, 254, 208));
+					JLabel lblKamera = new JLabel("Kamera:");
+					lblKamera.setPreferredSize(dim);
+					
+					txtKamera.setBackground(Color.GRAY);
+					txtKamera.setName("txtKamera");
+					txtKamera.addFocusListener(focusListener);
+					txtKamera.setPreferredSize(dim);
+					panKamera.add(lblKamera);
+					panKamera.add(txtKamera);
+					
+					JPanel panSvetlo = new JPanel(new FlowLayout(FlowLayout.LEFT));
+					panSvetlo.setBackground(new Color(254, 254, 208));
+					JLabel lblSvetlo = new JLabel("Svetlo:");
+					lblSvetlo.setPreferredSize(dim);
+					
+					txtSvetlo.setBackground(Color.GRAY);
+					txtSvetlo.setName("txtSvetlo");
+					txtSvetlo.addFocusListener(focusListener);
+					txtSvetlo.setPreferredSize(dim);
+					panSvetlo.add(lblSvetlo);
+					panSvetlo.add(txtSvetlo);
+					
+					JPanel panObjekat = new JPanel(new FlowLayout(FlowLayout.LEFT));
+					panObjekat.setBackground(new Color(254, 254, 208));
+					JLabel lblObjekat = new JLabel("Objekat:");
+					lblObjekat.setPreferredSize(dim);
+					
+					txtObjekat.setBackground(Color.GRAY);
+					txtObjekat.setName("txtObjekat");
+					txtObjekat.addFocusListener(focusListener);
+					txtObjekat.setPreferredSize(dim);
+					panObjekat.add(lblObjekat);
+					panObjekat.add(txtObjekat);
+					
+					
+					
 					
 					
 				  	
@@ -917,6 +960,10 @@ class MainFrame extends JFrame{
 					boxCentar.add(panFormatFajla);
 					boxCentar.add(panAlatizaAnimaciju);
 					boxCentar.add(panRender);
+					boxCentar.add(panMaterijal);
+					boxCentar.add(panKamera);
+					boxCentar.add(panSvetlo);
+					boxCentar.add(panObjekat);
 					
 
 					boxCentar.add(Box.createGlue());
@@ -934,7 +981,7 @@ class MainFrame extends JFrame{
 				public SimpleDialogSoftver(Frame parent, String title, boolean modal) {
 					super(parent, title, modal);
 
-					setSize(300, 500);
+					setSize(300, 600);
 					setLocationRelativeTo(parent);
 
 					JPanel panCentar = new JPanel();
@@ -952,7 +999,6 @@ class MainFrame extends JFrame{
 							btnOk.addActionListener (new ActionListener () {
 								 public void actionPerformed (ActionEvent e) {
 									 String softverdata = txtNazivSoftvera.getText();
-										//String cetkiceData = txtCetkice.getText();
 										String nazivcetkiceData = txtNazivCetkice.getText();
 										String namenacetkiceData = txtNamenaCetkice.getText();
 										String bojacetkiceData = txtBojaCetkice.getText();
@@ -960,9 +1006,14 @@ class MainFrame extends JFrame{
 										String formatfajlaRData = txtFormatFajla.getText();
 										String alatizaanimacijuData = txtAlatizaAnimaciju.getText();
 										String renderData = txtRender.getText();
+										String materijalData = txtMaterijal.getText();
+										String kameraData = txtKamera.getText();
+										String svetloData = txtSvetlo.getText();
+										String objekatData = txtObjekat.getText();
 										
 										Cetkica c=new Cetkica(nazivcetkiceData,namenacetkiceData,bojacetkiceData);
-										Softver Softver = new Softver (softverdata,c, modifikatoriData, formatfajlaRData, alatizaanimacijuData,new Render());
+										Render r=new Render(renderData,materijalData,kameraData,svetloData,objekatData);
+										Softver Softver = new Softver (softverdata,c, modifikatoriData, formatfajlaRData, alatizaanimacijuData,r);
 										
 										 try {
 											kontroler1.addSoftver(Softver);
@@ -974,19 +1025,21 @@ class MainFrame extends JFrame{
 										 
 											 
 											 model2.setValueAt(Softver.getNaziv(), kontroler1.getAllsoftveri().size()-1, 0);
-											// model2.setValueAt(Softver.getCetkica(), kontroler1.getAllsoftveri().size()-1, 1);
 											 model2.setValueAt(c.getNaziv(), kontroler1.getAllsoftveri().size()-1, 1);
 											 model2.setValueAt(c.getNamena(), kontroler1.getAllsoftveri().size()-1, 2);
 											 model2.setValueAt(c.getBoja(), kontroler1.getAllsoftveri().size()-1, 3);
 											 model2.setValueAt(Softver.getModifikator(), kontroler1.getAllsoftveri().size()-1, 4);
 											 model2.setValueAt(Softver.getFormat(), kontroler1.getAllsoftveri().size()-1, 5);
 											 model2.setValueAt(Softver.getAlat(), kontroler1.getAllsoftveri().size()-1, 6);
-											 model2.setValueAt(Softver.getRender(), kontroler1.getAllsoftveri().size()-1, 7);
+											 model2.setValueAt(r.getNaziv(), kontroler1.getAllsoftveri().size()-1, 7);
+											 model2.setValueAt(r.getMaterijal(), kontroler1.getAllsoftveri().size()-1, 8);
+											 model2.setValueAt(r.getKamera(), kontroler1.getAllsoftveri().size()-1, 9);
+											 model2.setValueAt(r.getSvetlo(), kontroler1.getAllsoftveri().size()-1, 10);
+											 model2.setValueAt(r.getObjekat(), kontroler1.getAllsoftveri().size()-1, 11);
 											
 											 
 										dispose();
 										txtNazivSoftvera.setText("");
-										//txtCetkice.setText("");
 										txtNazivCetkice.setText("");
 										txtNamenaCetkice.setText("");
 										txtBojaCetkice.setText("");
@@ -994,8 +1047,12 @@ class MainFrame extends JFrame{
 										txtFormatFajla.setText("");
 										txtAlatizaAnimaciju.setText("");
 										txtRender.setText("");
+										txtMaterijal.setText("");
+										txtKamera.setText("");
+										txtSvetlo.setText("");
+										txtObjekat.setText("");
 										
-										
+										System.out.println(kontroler1.getAllsoftveri());
 									 
 								 
 								 }
@@ -1024,7 +1081,7 @@ class MainFrame extends JFrame{
 				public SimpleDialogSoftver1(Frame parent, String title, boolean modal) {
 					super(parent, title, modal);
 
-					setSize(300, 500);
+					setSize(300, 600);
 					setLocationRelativeTo(parent);
 
 					JPanel panCentar = new JPanel();
@@ -1043,9 +1100,12 @@ class MainFrame extends JFrame{
 							String textFieldM = (String) model2.getValueAt(table2.getSelectedRow(),4);
 							String textFieldFF = (String) model2.getValueAt(table2.getSelectedRow(),5); 
 							String textFieldAA = (String) model2.getValueAt(table2.getSelectedRow(),6); 
-							String textFieldR = (String) model2.getValueAt(table2.getSelectedRow(),7); 
+							String textFieldR = (String) model2.getValueAt(table2.getSelectedRow(),7);
+							String textFieldMaterijal = (String) model2.getValueAt(table2.getSelectedRow(),8); 
+							String textFieldK = (String) model2.getValueAt(table2.getSelectedRow(),9); 
+							String textFieldSvetlo = (String) model2.getValueAt(table2.getSelectedRow(),10); 
+							String textFieldO = (String) model2.getValueAt(table2.getSelectedRow(),11); 
 							txtNazivSoftvera.setText(textFieldS);
-							//txtCetkice.setText(textFieldI);
 							txtNazivCetkice.setText(textFieldNazivCetkica);
 							txtNamenaCetkice.setText(textFieldJNamenaCetkica);
 							txtBojaCetkice.setText(textFieldBojaCetkica);
@@ -1053,6 +1113,10 @@ class MainFrame extends JFrame{
 							txtFormatFajla.setText(textFieldFF);
 							txtAlatizaAnimaciju.setText(textFieldAA);
 							txtRender.setText(textFieldR);
+							txtMaterijal.setText(textFieldMaterijal);
+							txtKamera.setText(textFieldK);
+							txtSvetlo.setText(textFieldSvetlo);
+							txtObjekat.setText(textFieldO);
 							
 							
 							
@@ -1073,7 +1137,6 @@ class MainFrame extends JFrame{
 									 
 									 
 										String softverdata = txtNazivSoftvera.getText();
-										//String cetkiceData = txtCetkice.getText();
 										String nazivcetkiceData = txtNazivCetkice.getText();
 										String namenacetkiceData = txtNamenaCetkice.getText();
 										String bojacetkiceData = txtBojaCetkice.getText();
@@ -1081,9 +1144,14 @@ class MainFrame extends JFrame{
 										String formatfajlaRData = txtFormatFajla.getText();
 										String alatizaanimacijuData = txtAlatizaAnimaciju.getText();
 										String renderData = txtRender.getText();
+										String materijalData = txtMaterijal.getText();
+										String kameraData = txtKamera.getText();
+										String svetloData = txtSvetlo.getText();
+										String objekatData = txtObjekat.getText();
 										
 										Cetkica c=new Cetkica(nazivcetkiceData,namenacetkiceData,bojacetkiceData);
-										Softver Softver = new Softver (softverdata,c, modifikatoriData, formatfajlaRData, alatizaanimacijuData,new Render());
+										Render r=new Render(renderData,materijalData,kameraData,svetloData,objekatData);
+										Softver Softver = new Softver (softverdata,c, modifikatoriData, formatfajlaRData, alatizaanimacijuData,r);
 										
 										 try {
 											kontroler1.addSoftver(Softver);
@@ -1095,27 +1163,21 @@ class MainFrame extends JFrame{
 										 
 											 
 											 model2.setValueAt(Softver.getNaziv(), kontroler1.getAllsoftveri().size()-1, 0);
-											// model2.setValueAt(Softver.getCetkica(), kontroler1.getAllsoftveri().size()-1, 1);
 											 model2.setValueAt(c.getNaziv(), kontroler1.getAllsoftveri().size()-1, 1);
 											 model2.setValueAt(c.getNamena(), kontroler1.getAllsoftveri().size()-1, 2);
 											 model2.setValueAt(c.getBoja(), kontroler1.getAllsoftveri().size()-1, 3);
 											 model2.setValueAt(Softver.getModifikator(), kontroler1.getAllsoftveri().size()-1, 4);
 											 model2.setValueAt(Softver.getFormat(), kontroler1.getAllsoftveri().size()-1, 5);
 											 model2.setValueAt(Softver.getAlat(), kontroler1.getAllsoftveri().size()-1, 6);
-											 model2.setValueAt(Softver.getRender(), kontroler1.getAllsoftveri().size()-1, 7);
-											 try {
-													kontroler1.updateSoftver(Softver, textFieldS);
-												} catch (Exception e1) {
-													// TODO Auto-generated catch block
-													e1.printStackTrace();
-												}
-
-												 System.out.println(kontroler1.getAllsoftveri());
+											 model2.setValueAt(r.getNaziv(), kontroler1.getAllsoftveri().size()-1, 7);
+											 model2.setValueAt(r.getMaterijal(), kontroler1.getAllsoftveri().size()-1, 8);
+											 model2.setValueAt(r.getKamera(), kontroler1.getAllsoftveri().size()-1, 9);
+											 model2.setValueAt(r.getSvetlo(), kontroler1.getAllsoftveri().size()-1, 10);
+											 model2.setValueAt(r.getObjekat(), kontroler1.getAllsoftveri().size()-1, 11);
 											
 											 
 										dispose();
 										txtNazivSoftvera.setText("");
-										//txtCetkice.setText("");
 										txtNazivCetkice.setText("");
 										txtNamenaCetkice.setText("");
 										txtBojaCetkice.setText("");
@@ -1123,8 +1185,12 @@ class MainFrame extends JFrame{
 										txtFormatFajla.setText("");
 										txtAlatizaAnimaciju.setText("");
 										txtRender.setText("");
+										txtMaterijal.setText("");
+										txtKamera.setText("");
+										txtSvetlo.setText("");
+										txtObjekat.setText("");
 										
-										
+										System.out.println(kontroler1.getAllsoftveri());
 									 
 								 
 								 }
