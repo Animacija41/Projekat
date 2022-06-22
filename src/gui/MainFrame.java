@@ -124,7 +124,7 @@ class MainFrame extends JFrame{
 			 getContentPane().add(MyStratusBar,BorderLayout.SOUTH);
 			 
 			 table1.setDefaultEditor(Object.class, null);
-			 table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			 table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 		//https://stackoverflow.com/questions/18309113/jtable-how-to-force-user-to-select-exactly-one-row
 			 table2.setDefaultEditor(Object.class, null);
 			 table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			 	tabs=new JTabbedPane();
@@ -142,7 +142,7 @@ class MainFrame extends JFrame{
 
 				super(new BorderLayout());
 				setBorder(new TitledBorder(new EtchedBorder(), "Unesite podatke"));
-				setBackground(new Color(1, 1, 1));
+				setBackground(new Color(255, 255, 1));
 
 				Dimension dim = new Dimension(100, 25);
 				MyFocusListener focusListener = new MyFocusListener();
@@ -150,12 +150,12 @@ class MainFrame extends JFrame{
 				JPanel panPrezime = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				panPrezime.setBackground(new Color(254, 254, 208));
 
-				JLabel lblPrezime = new JLabel("Prezime*:");
+				JLabel lblPrezime = new JLabel("Prezime:");
 				lblPrezime.setPreferredSize(dim);
 				
 				txtPrezime.setPreferredSize(dim);
 				txtPrezime.setName("txtPrezime");
-				txtPrezime.setBackground(Color.GRAY);
+				txtPrezime.setBackground(Color.WHITE);
 				txtPrezime.addFocusListener(focusListener);
 
 				panPrezime.add(lblPrezime);
@@ -166,7 +166,7 @@ class MainFrame extends JFrame{
 				JLabel lblIme = new JLabel("Ime:");
 				lblIme.setPreferredSize(dim);
 				
-				txtIme.setBackground(Color.GRAY);
+				txtIme.setBackground(Color.WHITE);
 				txtIme.setName("txtIme");
 				txtIme.addFocusListener(focusListener);
 				txtIme.setPreferredSize(dim);
@@ -178,7 +178,7 @@ class MainFrame extends JFrame{
 				JLabel lblAdresa = new JLabel("Ulica:");
 				lblAdresa.setPreferredSize(dim);
 				
-				txtUlica.setBackground(Color.GRAY);
+				txtUlica.setBackground(Color.WHITE);
 				txtUlica.setName("txtUlica");
 				txtUlica.addFocusListener(focusListener);
 				txtUlica.setPreferredSize(dim);
@@ -190,7 +190,7 @@ class MainFrame extends JFrame{
 				JLabel lblBroj = new JLabel("Broj:");
 				lblBroj.setPreferredSize(dim);
 				
-				txtBroj.setBackground(Color.GRAY);
+				txtBroj.setBackground(Color.WHITE);
 				txtBroj.setName("txtBroj");
 				txtBroj.addFocusListener(focusListener);
 				txtBroj.setPreferredSize(dim);
@@ -202,7 +202,7 @@ class MainFrame extends JFrame{
 				JLabel lblGrad = new JLabel("Grad:");
 				lblGrad.setPreferredSize(dim);
 				
-				txtGrad.setBackground(Color.GRAY);
+				txtGrad.setBackground(Color.WHITE);
 				txtGrad.setName("txtGrad");
 				txtGrad.addFocusListener(focusListener);
 				txtGrad.setPreferredSize(dim);
@@ -214,7 +214,7 @@ class MainFrame extends JFrame{
 				JLabel lblEmail = new JLabel("Email:");
 				lblEmail.setPreferredSize(dim);
 				
-				txtEmail.setBackground(Color.GRAY);
+				txtEmail.setBackground(Color.WHITE);
 				txtEmail.setName("txtAdresa");
 				txtEmail.addFocusListener(focusListener);
 				txtEmail.setPreferredSize(dim);
@@ -226,7 +226,7 @@ class MainFrame extends JFrame{
 				JLabel lblAlati = new JLabel("Alati:");
 				lblAlati.setPreferredSize(dim);
 				
-				txtAlati.setBackground(Color.GRAY);
+				txtAlati.setBackground(Color.WHITE);
 				txtAlati.setName("txtAlati");
 				txtAlati.addFocusListener(focusListener);
 				txtAlati.setPreferredSize(dim);
@@ -238,7 +238,7 @@ class MainFrame extends JFrame{
 				JLabel lblRadnoMesto = new JLabel("RadnoMesto:");
 				lblRadnoMesto.setPreferredSize(dim);
 				
-				txtRadnoMesto.setBackground(Color.GRAY);
+				txtRadnoMesto.setBackground(Color.WHITE);
 				txtRadnoMesto.setName("txtRadnoMesto");
 				txtRadnoMesto.addFocusListener(focusListener);
 				txtRadnoMesto.setPreferredSize(dim);
@@ -251,12 +251,13 @@ class MainFrame extends JFrame{
 			  	JPanel panJMBG=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			  	panJMBG.setBackground(new Color(254, 254, 208));
 			  	
-			  	JLabel lblJMBG=new JLabel("JMBG:");
+			  	JLabel lblJMBG=new JLabel("JMBG*:");
 			  	lblJMBG.setPreferredSize(dim);
 			  	
-			  	txtJMBG.setBackground(Color.GRAY);
+			  	txtJMBG.setBackground(Color.WHITE);
 			  	txtJMBG.setPreferredSize(dim);
 			  	txtJMBG.setName("txtJMBG");
+			  	txtJMBG.addFocusListener(focusListener);
 			  	txtJMBG.addKeyListener(keyListener);
 			  	
 			  	panJMBG.add(lblJMBG);
@@ -268,7 +269,7 @@ class MainFrame extends JFrame{
 			  	JLabel lblDatumRodjenja=new JLabel("Datum Rodjenja:");
 			  	lblDatumRodjenja.setPreferredSize(dim);
 			  	
-			  	txtDatumRodjenja.setBackground(Color.GRAY);
+			  	txtDatumRodjenja.setBackground(Color.WHITE);
 			  	txtDatumRodjenja.setPreferredSize(dim);
 			  	txtDatumRodjenja.setName("txtDatumRodjenja");
 			  	txtDatumRodjenja.addKeyListener(keyListener);
@@ -669,7 +670,7 @@ class MainFrame extends JFrame{
 							statusBar.setBackground(Color.LIGHT_GRAY);
 							statusBar.setPreferredSize(new Dimension(100, 30));
 							
-							String textFieldP = (String) model1.getValueAt(table1.getSelectedRow(),0); 
+							String textFieldP = (String) model1.getValueAt(table1.getSelectedRow(),0);  		//https://stackoverflow.com/questions/13750946/get-value-from-jtable-to-set-into-jtextfield
 							String textFieldI = (String) model1.getValueAt(table1.getSelectedRow(),1); 
 							String textFieldJ = (String) model1.getValueAt(table1.getSelectedRow(),2); 
 							String textFieldDR = (String) model1.getValueAt(table1.getSelectedRow(),3); 
@@ -743,7 +744,7 @@ class MainFrame extends JFrame{
 											 
 										dispose();
 										
-										txtPrezime.setText("");
+										txtPrezime.setText("");					//https://stackoverflow.com/questions/16106605/how-to-delete-text-when-a-user-clicks-a-jtextfield
 										txtIme.setText("");
 										txtJMBG.setText("");
 										txtDatumRodjenja.setText("");
@@ -785,20 +786,20 @@ class MainFrame extends JFrame{
 
 					super(new BorderLayout());
 					setBorder(new TitledBorder(new EtchedBorder(), "Unesite podatke"));
-					setBackground(new Color(1, 1, 1));
+					setBackground(new Color(255, 255, 1));
 
 					Dimension dim = new Dimension(100, 25);
-					MyFocusListener focusListener = new MyFocusListener();
+					MyFocusListener1 focusListener = new MyFocusListener1();
 
 					JPanel panNazivSoftvera = new JPanel(new FlowLayout(FlowLayout.LEFT));
 					panNazivSoftvera.setBackground(new Color(254, 254, 208));
 
-					JLabel lblNazivSoftvera = new JLabel("Naziv Softvera :");
+					JLabel lblNazivSoftvera = new JLabel("Naziv Softvera*:");
 					lblNazivSoftvera.setPreferredSize(dim);
 					
 					txtNazivSoftvera.setPreferredSize(dim);
 					txtNazivSoftvera.setName("txtNazivSoftvera");
-					txtNazivSoftvera.setBackground(Color.GRAY);
+					txtNazivSoftvera.setBackground(Color.WHITE);
 					txtNazivSoftvera.addFocusListener(focusListener);
 
 					panNazivSoftvera.add(lblNazivSoftvera);
@@ -810,7 +811,7 @@ class MainFrame extends JFrame{
 					JLabel lblNazivCetkice = new JLabel("Naziv Cetkice:");
 					lblNazivCetkice.setPreferredSize(dim);
 					
-					txtNazivCetkice.setBackground(Color.GRAY);
+					txtNazivCetkice.setBackground(Color.WHITE);
 					txtNazivCetkice.setName("txtNazivCetkice");
 					txtNazivCetkice.addFocusListener(focusListener);
 					txtNazivCetkice.setPreferredSize(dim);
@@ -822,7 +823,7 @@ class MainFrame extends JFrame{
 					JLabel lblBojaCetkice = new JLabel("Boja Cetkice:");
 					lblBojaCetkice.setPreferredSize(dim);
 					
-					txtBojaCetkice.setBackground(Color.GRAY);
+					txtBojaCetkice.setBackground(Color.WHITE);
 					txtBojaCetkice.setName("txtBojaCetkice");
 					txtBojaCetkice.addFocusListener(focusListener);
 					txtBojaCetkice.setPreferredSize(dim);
@@ -834,7 +835,7 @@ class MainFrame extends JFrame{
 					JLabel lblNamenaCetkice = new JLabel("Namena Cetkice:");
 					lblNamenaCetkice.setPreferredSize(dim);
 					
-					txtNamenaCetkice.setBackground(Color.GRAY);
+					txtNamenaCetkice.setBackground(Color.WHITE);
 					txtNamenaCetkice.setName("txtNamenaCetkice");
 					txtNamenaCetkice.addFocusListener(focusListener);
 					txtNamenaCetkice.setPreferredSize(dim);
@@ -847,7 +848,7 @@ class MainFrame extends JFrame{
 					JLabel lblModifikatori = new JLabel("Modifikatori:");
 					lblModifikatori.setPreferredSize(dim);
 					
-					txtModifikatori.setBackground(Color.GRAY);
+					txtModifikatori.setBackground(Color.WHITE);
 					txtModifikatori.setName("txtModifikatori");
 					txtModifikatori.addFocusListener(focusListener);
 					txtModifikatori.setPreferredSize(dim);
@@ -859,7 +860,7 @@ class MainFrame extends JFrame{
 					JLabel lblFormatFajla = new JLabel("FormatFajla:");
 					lblFormatFajla.setPreferredSize(dim);
 					
-					txtFormatFajla.setBackground(Color.GRAY);
+					txtFormatFajla.setBackground(Color.WHITE);
 					txtFormatFajla.setName("txtFormatFajla");
 					txtFormatFajla.addFocusListener(focusListener);
 					txtFormatFajla.setPreferredSize(dim);
@@ -871,7 +872,7 @@ class MainFrame extends JFrame{
 					JLabel lblAlatizaAnimaciju = new JLabel("Alati za Animaciju:");
 					lblAlatizaAnimaciju.setPreferredSize(dim);
 					
-					txtAlatizaAnimaciju.setBackground(Color.GRAY);
+					txtAlatizaAnimaciju.setBackground(Color.WHITE);
 					txtAlatizaAnimaciju.setName("txtAlatizaAnimaciju");
 					txtAlatizaAnimaciju.addFocusListener(focusListener);
 					txtAlatizaAnimaciju.setPreferredSize(dim);
@@ -883,7 +884,7 @@ class MainFrame extends JFrame{
 					JLabel lblRender = new JLabel("Render:");
 					lblRender.setPreferredSize(dim);
 					
-					txtRender.setBackground(Color.GRAY);
+					txtRender.setBackground(Color.WHITE);
 					txtRender.setName("txtRender");
 					txtRender.addFocusListener(focusListener);
 					txtRender.setPreferredSize(dim);
@@ -895,7 +896,7 @@ class MainFrame extends JFrame{
 					JLabel lblMaterijal = new JLabel("Materijal:");
 					lblMaterijal.setPreferredSize(dim);
 					
-					txtMaterijal.setBackground(Color.GRAY);
+					txtMaterijal.setBackground(Color.WHITE);
 					txtMaterijal.setName("txtMaterijal");
 					txtMaterijal.addFocusListener(focusListener);
 					txtMaterijal.setPreferredSize(dim);
@@ -907,7 +908,7 @@ class MainFrame extends JFrame{
 					JLabel lblKamera = new JLabel("Kamera:");
 					lblKamera.setPreferredSize(dim);
 					
-					txtKamera.setBackground(Color.GRAY);
+					txtKamera.setBackground(Color.WHITE);
 					txtKamera.setName("txtKamera");
 					txtKamera.addFocusListener(focusListener);
 					txtKamera.setPreferredSize(dim);
@@ -919,7 +920,7 @@ class MainFrame extends JFrame{
 					JLabel lblSvetlo = new JLabel("Svetlo:");
 					lblSvetlo.setPreferredSize(dim);
 					
-					txtSvetlo.setBackground(Color.GRAY);
+					txtSvetlo.setBackground(Color.WHITE);
 					txtSvetlo.setName("txtSvetlo");
 					txtSvetlo.addFocusListener(focusListener);
 					txtSvetlo.setPreferredSize(dim);
@@ -931,7 +932,7 @@ class MainFrame extends JFrame{
 					JLabel lblObjekat = new JLabel("Objekat:");
 					lblObjekat.setPreferredSize(dim);
 					
-					txtObjekat.setBackground(Color.GRAY);
+					txtObjekat.setBackground(Color.WHITE);
 					txtObjekat.setName("txtObjekat");
 					txtObjekat.addFocusListener(focusListener);
 					txtObjekat.setPreferredSize(dim);

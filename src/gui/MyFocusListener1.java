@@ -6,7 +6,7 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
-public class MyFocusListener implements FocusListener{
+public class MyFocusListener1 implements FocusListener{
 	@Override
 	public void focusGained(FocusEvent arg0) {
 
@@ -20,11 +20,11 @@ public class MyFocusListener implements FocusListener{
 		JTextField txt = (JTextField) arg0.getComponent();
 		txt.setBackground(Color.GRAY);
 
-		// polje JMBG je obavezno za unos:
-		if (txt.getName().equals("txtJMBG")) {
+		// polje naziva je obavezno za unos:
+		if (txt.getName().equals("txtNazivSoftvera")) {
 
-			if (txt.getText().trim().equals("") || txt.getText().trim().equals("Unesite JMBG...")) {
-				txt.setText("Unesite JMBG...");
+			if (txt.getText().trim().equals("") || txt.getText().trim().equals("Unesite naziv...")) {
+				txt.setText("Unesite naziv...");
 				txt.requestFocus();
 				txt.setForeground(Color.RED);
 			} else {
@@ -33,4 +33,6 @@ public class MyFocusListener implements FocusListener{
 		}
 
 	}
+
 }
+
