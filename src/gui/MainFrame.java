@@ -65,7 +65,7 @@ class MainFrame extends JFrame{
 	private JTextField txtCetkice = new JTextField();
 	private JTextField txtPrezime = new JTextField();
 	private JTextField txtIme = new JTextField();
-	private JTextField txtAdresa = new JTextField();
+	private JTextField txtUlica = new JTextField();
 	private JTextField txtBroj = new JTextField();
 	private JTextField txtGrad = new JTextField();
 	private JTextField txtAlati = new JTextField();
@@ -73,8 +73,8 @@ class MainFrame extends JFrame{
 	private JTextField txtDatumRodjenja=new JTextField();
 	private JTextField txtJMBG=new JTextField();
 	private JTextField txtRadnoMesto = new JTextField();
-	private DefaultTableModel model1 = new DefaultTableModel(100,8);
-	private DefaultTableModel model2 = new DefaultTableModel(100,6);
+	private DefaultTableModel model1 = new DefaultTableModel(100,10);
+	private DefaultTableModel model2 = new DefaultTableModel(100,8);
 	private JTable table1 = new JTable(model1);
 	private JTable table2 = new JTable(model2);
 	JTabbedPane tabs=new JTabbedPane();
@@ -171,15 +171,15 @@ class MainFrame extends JFrame{
 				
 				JPanel panAdresa = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				panAdresa.setBackground(new Color(254, 254, 208));
-				JLabel lblAdresa = new JLabel("Adresa:");
+				JLabel lblAdresa = new JLabel("Ulica:");
 				lblAdresa.setPreferredSize(dim);
 				
-				txtAdresa.setBackground(Color.GRAY);
-				txtAdresa.setName("txtAdresa");
-				txtAdresa.addFocusListener(focusListener);
-				txtAdresa.setPreferredSize(dim);
+				txtUlica.setBackground(Color.GRAY);
+				txtUlica.setName("txtUlica");
+				txtUlica.addFocusListener(focusListener);
+				txtUlica.setPreferredSize(dim);
 				panAdresa.add(lblAdresa);
-				panAdresa.add(txtAdresa);
+				panAdresa.add(txtUlica);
 				
 				JPanel panBroj = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				panBroj.setBackground(new Color(254, 254, 208));
@@ -187,7 +187,7 @@ class MainFrame extends JFrame{
 				lblBroj.setPreferredSize(dim);
 				
 				txtBroj.setBackground(Color.GRAY);
-				txtBroj.setName("txtAdresa");
+				txtBroj.setName("txtBroj");
 				txtBroj.addFocusListener(focusListener);
 				txtBroj.setPreferredSize(dim);
 				panBroj.add(lblBroj);
@@ -199,7 +199,7 @@ class MainFrame extends JFrame{
 				lblGrad.setPreferredSize(dim);
 				
 				txtGrad.setBackground(Color.GRAY);
-				txtGrad.setName("txtAdresa");
+				txtGrad.setName("txtGrad");
 				txtGrad.addFocusListener(focusListener);
 				txtGrad.setPreferredSize(dim);
 				panGrad.add(lblGrad);
@@ -319,13 +319,14 @@ class MainFrame extends JFrame{
 									String jmbgData = txtJMBG.getText();
 									String datumRData = txtDatumRodjenja.getText();
 									String emailData = txtEmail.getText();
-									String adresaData = txtAdresa.getText();
+									String ulicaData = txtUlica.getText();
 									String brojData = txtBroj.getText();
 									String gradData = txtGrad.getText();
 									String alatiData = txtAlati.getText();
 									String radnoMestoData = txtRadnoMesto.getText();
-									
-									Zaposleni radnik = new Zaposleni(prezimeData, imeData, jmbgData, datumRData, emailData, new Adresa(), new Softver(), radnoMestoData);
+									Adresa a=new Adresa(ulicaData, brojData, gradData);
+									Softver s=new Softver(alatiData);
+									Zaposleni radnik = new Zaposleni(prezimeData, imeData, jmbgData, datumRData, emailData, a, s, radnoMestoData);
 									
 									 try {
 										kontroler.addradnik(radnik);
@@ -341,11 +342,11 @@ class MainFrame extends JFrame{
 										 model1.setValueAt(radnik.getJMBG(), kontroler.getAllZaposleni().size()-1, 2);
 										 model1.setValueAt(radnik.getDatum(), kontroler.getAllZaposleni().size()-1, 3);
 										 model1.setValueAt(radnik.getEmail(), kontroler.getAllZaposleni().size()-1, 4);
-										// model1.setValueAt(radnik.getAdresa(), kontroler.getAllZaposleni().size()-1, 5);
-										// model1.setValueAt(radnik.getBroj(), kontroler.getAllZaposleni().size()-1, 6);
-										// model1.setValueAt(radnik.getGrad(), kontroler.getAllZaposleni().size()-1, 7);
-										 model1.setValueAt(radnik.getSoftver(), kontroler.getAllZaposleni().size()-1, 6);
-										 model1.setValueAt(radnik.getRadnoMesto(), kontroler.getAllZaposleni().size()-1, 7);
+										 model1.setValueAt(a.getUlica(), kontroler.getAllZaposleni().size()-1, 5);
+										 model1.setValueAt(a.getBroj(), kontroler.getAllZaposleni().size()-1, 6);
+										 model1.setValueAt(a.getGrad(), kontroler.getAllZaposleni().size()-1, 7);
+										 model1.setValueAt(s.getNaziv(), kontroler.getAllZaposleni().size()-1, 8);
+										 model1.setValueAt(radnik.getRadnoMesto(), kontroler.getAllZaposleni().size()-1, 9);
 										 
 									dispose();
 									txtPrezime.setText("");
@@ -353,9 +354,9 @@ class MainFrame extends JFrame{
 									txtJMBG.setText("");
 									txtDatumRodjenja.setText("");
 									txtEmail.setText("");
-									//txtAdresa.setText("");
-									//txtBroj.setText("");
-									//txtGrad.setText("");
+									txtUlica.setText("");
+									txtBroj.setText("");
+									txtGrad.setText("");
 									txtAlati.setText("");
 									txtRadnoMesto.setText("");
 									
@@ -451,23 +452,22 @@ class MainFrame extends JFrame{
 				
 
 				JMenuItem miedit = new JMenuItem("Edit");
-				//boolean isSelected1=table1.getSelectionModel().isSelectionEmpty();
-				//boolean isSelected2=table2.getSelectionModel().isSelectionEmpty();
+				
 				miedit.addActionListener (new ActionListener () {
 					 public void actionPerformed (ActionEvent e) {
-						// if (isSelected1==false) 
-						//{
+						if (tabs.getSelectedIndex()==0) 
+						{
 							 SimpleDialogZaposleni1 dialog = new SimpleDialogZaposleni1(parent, "Dialog Zaposleni", true);
 							 dialog.setVisible(true);
 							
-						// }
-						//else if(isSelected2==false) 
-						// {
-						//	SimpleDialogSoftver dialog = new SimpleDialogSoftver(parent, "Dialog Softver", true);
-						//	dialog.setVisible(true);
-						//}
+						 }
+						else if(tabs.getSelectedIndex()==1) 
+						 {
+							SimpleDialogSoftver1 dialog = new SimpleDialogSoftver1(parent, "Dialog Softver", true);
+							dialog.setVisible(true);
+						}
 						
-					 }
+					}
 					
 				});
 				JMenuItem midelete = new JMenuItem("Delete");
@@ -532,37 +532,47 @@ class MainFrame extends JFrame{
 				JButton btnNew = new JButton();
 				btnNew.setToolTipText("New");
 				btnNew.setIcon(new ImageIcon("ikonice/add.png"));
-				add(btnNew);
-
-				addSeparator();
+				
 				
 				btnNew.addActionListener(new ActionListener() {
 
-					@Override
+					
 					public void actionPerformed(ActionEvent arg0) {
 						
-						SimpleDialogZaposleni dialog = new SimpleDialogZaposleni(parent, "Dialog Zaposleni", true);
-						dialog.setVisible(true);
+						if (tabs.getSelectedIndex()==0) 
+						 {
+							 SimpleDialogZaposleni dijalog=new SimpleDialogZaposleni(parent,"Dialog Zaposleni", true);
+							 dijalog.setVisible(true);
+						 }
+						else if(tabs.getSelectedIndex()==1) 
+						 {
+							 SimpleDialogSoftver dijalog2=new SimpleDialogSoftver(parent,"Dialog Softver", true);
+							 dijalog2.setVisible(true);
+						 }
+						
 
 					}
 				});
+				add(btnNew);
+
+				addSeparator();
 
 				JButton btnEdit = new JButton();
 				btnEdit.setToolTipText("Edit");
 				btnEdit.setIcon(new ImageIcon("ikonice/editing.png"));
 				btnEdit.addActionListener (new ActionListener () {
 					 public void actionPerformed (ActionEvent e) {
-						// if (isSelected1==false) 
-						//{
+						 if (tabs.getSelectedIndex()==0) 
+						{
 							 SimpleDialogZaposleni1 dialog = new SimpleDialogZaposleni1(parent, "Dialog Zaposleni", true);
 							 dialog.setVisible(true);
 							
-						// }
-						//else if(isSelected2==false) 
-						// {
-						//	SimpleDialogSoftver1 dialog = new SimpleDialogSoftver(parent, "Dialog Softver", true);
-						//	dialog.setVisible(true);
-						//}
+						 }
+						else if(tabs.getSelectedIndex()==1) 
+						 {
+							SimpleDialogSoftver1 dialog = new SimpleDialogSoftver1(parent, "Dialog Softver", true);
+							dialog.setVisible(true);
+						}
 						
 					 }
 					
@@ -660,20 +670,20 @@ class MainFrame extends JFrame{
 							String textFieldJ = (String) model1.getValueAt(table1.getSelectedRow(),2); 
 							String textFieldDR = (String) model1.getValueAt(table1.getSelectedRow(),3); 
 							String textFieldE = (String) model1.getValueAt(table1.getSelectedRow(),4); 
-							//String textFieldA = (String) model1.getValueAt(table1.getSelectedRow(),5); 
-							//String textFieldA = (String) model1.getValueAt(table1.getSelectedRow(),6);
-							//String textFieldA = (String) model1.getValueAt(table1.getSelectedRow(),7);
-							//String textFieldAl = (String) model1.getValueAt(table1.getSelectedRow(),8); 
-							String textFieldRM = (String) model1.getValueAt(table1.getSelectedRow(),7); 
+							String textFieldU = (String) model1.getValueAt(table1.getSelectedRow(),5); 
+							String textFieldB = (String) model1.getValueAt(table1.getSelectedRow(),6);
+							String textFieldG = (String) model1.getValueAt(table1.getSelectedRow(),7);
+							String textFieldAl = (String) model1.getValueAt(table1.getSelectedRow(),8); 
+							String textFieldRM = (String) model1.getValueAt(table1.getSelectedRow(),9); 
 							txtPrezime.setText(textFieldP);
 							txtIme.setText(textFieldI);
 							txtJMBG.setText(textFieldJ);
 							txtDatumRodjenja.setText(textFieldDR);
 							txtEmail.setText(textFieldE);
-							//txtAdresa.setText(textFieldA);
-							//txtBroj.setText(textFieldA);
-							//txtGrad.setText(textFieldA);
-							//txtAlati.setText(textFieldAl);
+							txtUlica.setText(textFieldU);
+							txtBroj.setText(textFieldB);
+							txtGrad.setText(textFieldG);
+							txtAlati.setText(textFieldAl);
 							txtRadnoMesto.setText(textFieldRM);
 						
 							JButton btnOk=new JButton("Ok");
@@ -690,18 +700,19 @@ class MainFrame extends JFrame{
 											e1.printStackTrace();
 										}
 										
-									 String prezimeData = txtPrezime.getText();
+										String prezimeData = txtPrezime.getText();
 										String imeData = txtIme.getText();
-										String jmbgData = (txtJMBG.getText());
+										String jmbgData = txtJMBG.getText();
 										String datumRData = txtDatumRodjenja.getText();
 										String emailData = txtEmail.getText();
-										//String adresaData = txtAdresa.getText();
-										//String brojData = txtAdresa.getText();
-										//String gradData = txtAdresa.getText();
+										String ulicaData = txtUlica.getText();
+										String brojData = txtBroj.getText();
+										String gradData = txtGrad.getText();
 										String alatiData = txtAlati.getText();
 										String radnoMestoData = txtRadnoMesto.getText();
-										
-										Zaposleni radnik = new Zaposleni(prezimeData, imeData, jmbgData, datumRData, emailData, new Adresa(), new Softver(), radnoMestoData);
+										Adresa a=new Adresa(ulicaData, brojData, gradData);
+										Softver s=new Softver(alatiData);
+										Zaposleni radnik = new Zaposleni(prezimeData, imeData, jmbgData, datumRData, emailData, a, s, radnoMestoData);
 										
 										
 										 System.out.println(kontroler.getAllZaposleni());
@@ -712,11 +723,11 @@ class MainFrame extends JFrame{
 											 model1.setValueAt(radnik.getJMBG(), index, 2);
 											 model1.setValueAt(radnik.getDatum(), index, 3);
 											 model1.setValueAt(radnik.getEmail(), index, 4);
-											// model1.setValueAt(radnik.getAdresa(), index, 5);
-											// model1.setValueAt(radnik.getAdresa(), index, 6);
-											// model1.setValueAt(radnik.getAdresa(), index, 7);
-											 model1.setValueAt(radnik.getSoftver(), index, 6);
-											 model1.setValueAt(radnik.getRadnoMesto(), index, 7);
+											 model1.setValueAt(a.getUlica(), index, 5);
+											 model1.setValueAt(a.getBroj(), index, 6);
+											 model1.setValueAt(a.getGrad(), index, 7);
+											 model1.setValueAt(s.getNaziv(), index, 8);
+											 model1.setValueAt(radnik.getRadnoMesto(), index, 9);
 											 try {
 												kontroler.updateradnik(radnik, textFieldJ);
 											} catch (Exception e1) {
@@ -733,7 +744,9 @@ class MainFrame extends JFrame{
 										txtJMBG.setText("");
 										txtDatumRodjenja.setText("");
 										txtEmail.setText("");
-										//txtAdresa.setText("");
+										txtUlica.setText("");
+										txtBroj.setText("");
+										txtGrad.setText("");
 										txtAlati.setText("");
 										txtRadnoMesto.setText("");
 										
@@ -787,7 +800,7 @@ class MainFrame extends JFrame{
 					panNazivSoftvera.add(lblNazivSoftvera);
 					panNazivSoftvera.add(txtNazivSoftvera);
 
-					JPanel panCetkice = new JPanel(new FlowLayout(FlowLayout.LEFT));
+					/**JPanel panCetkice = new JPanel(new FlowLayout(FlowLayout.LEFT));
 					panCetkice.setBackground(new Color(254, 254, 208));
 					JLabel lblCetkice = new JLabel("Cetkice:");
 					lblCetkice.setPreferredSize(dim);
@@ -797,7 +810,7 @@ class MainFrame extends JFrame{
 					txtCetkice.addFocusListener(focusListener);
 					txtCetkice.setPreferredSize(dim);
 					panCetkice.add(lblCetkice);
-					panCetkice.add(txtCetkice);
+					panCetkice.add(txtCetkice);*/
 					
 					JPanel panNazivCetkice = new JPanel(new FlowLayout(FlowLayout.LEFT));
 					panNazivCetkice.setBackground(new Color(254, 254, 208));
@@ -896,7 +909,7 @@ class MainFrame extends JFrame{
 					Box boxCentar = Box.createVerticalBox();
 					boxCentar.add(Box.createVerticalStrut(20));
 					boxCentar.add(panNazivSoftvera);
-					boxCentar.add(panCetkice);
+					//boxCentar.add(panCetkice);
 					boxCentar.add(panNazivCetkice);
 					boxCentar.add(panNamenaCetkice);
 					boxCentar.add(panBojaCetkice);
@@ -939,7 +952,7 @@ class MainFrame extends JFrame{
 							btnOk.addActionListener (new ActionListener () {
 								 public void actionPerformed (ActionEvent e) {
 									 String softverdata = txtNazivSoftvera.getText();
-										String cetkiceData = txtCetkice.getText();
+										//String cetkiceData = txtCetkice.getText();
 										String nazivcetkiceData = txtNazivCetkice.getText();
 										String namenacetkiceData = txtNamenaCetkice.getText();
 										String bojacetkiceData = txtBojaCetkice.getText();
@@ -948,8 +961,8 @@ class MainFrame extends JFrame{
 										String alatizaanimacijuData = txtAlatizaAnimaciju.getText();
 										String renderData = txtRender.getText();
 										
-										
-										Softver Softver = new Softver (softverdata,new Cetkica(), modifikatoriData, formatfajlaRData, alatizaanimacijuData,new Render());
+										Cetkica c=new Cetkica(nazivcetkiceData,namenacetkiceData,bojacetkiceData);
+										Softver Softver = new Softver (softverdata,c, modifikatoriData, formatfajlaRData, alatizaanimacijuData,new Render());
 										
 										 try {
 											kontroler1.addSoftver(Softver);
@@ -961,19 +974,19 @@ class MainFrame extends JFrame{
 										 
 											 
 											 model2.setValueAt(Softver.getNaziv(), kontroler1.getAllsoftveri().size()-1, 0);
-											 model2.setValueAt(Softver.getCetkica(), kontroler1.getAllsoftveri().size()-1, 1);
-											// model2.setValueAt(Softver.getNamena(), kontroler1.getAllsoftveri().size()-1, 2);
-											// model2.setValueAt(Softver.getNaziv(), kontroler1.getAllsoftveri().size()-1, 3);
-											// model2.setValueAt(Softver.getBoja(), kontroler1.getAllsoftveri().size()-1, 4);
-											 model2.setValueAt(Softver.getModifikator(), kontroler1.getAllsoftveri().size()-1, 2);
-											 model2.setValueAt(Softver.getFormat(), kontroler1.getAllsoftveri().size()-1, 3);
-											 model2.setValueAt(Softver.getAlat(), kontroler1.getAllsoftveri().size()-1, 4);
-											 model2.setValueAt(Softver.getRender(), kontroler1.getAllsoftveri().size()-1, 5);
+											// model2.setValueAt(Softver.getCetkica(), kontroler1.getAllsoftveri().size()-1, 1);
+											 model2.setValueAt(c.getNaziv(), kontroler1.getAllsoftveri().size()-1, 1);
+											 model2.setValueAt(c.getNamena(), kontroler1.getAllsoftveri().size()-1, 2);
+											 model2.setValueAt(c.getBoja(), kontroler1.getAllsoftveri().size()-1, 3);
+											 model2.setValueAt(Softver.getModifikator(), kontroler1.getAllsoftveri().size()-1, 4);
+											 model2.setValueAt(Softver.getFormat(), kontroler1.getAllsoftveri().size()-1, 5);
+											 model2.setValueAt(Softver.getAlat(), kontroler1.getAllsoftveri().size()-1, 6);
+											 model2.setValueAt(Softver.getRender(), kontroler1.getAllsoftveri().size()-1, 7);
 											
 											 
 										dispose();
 										txtNazivSoftvera.setText("");
-										txtCetkice.setText("");
+										//txtCetkice.setText("");
 										txtNazivCetkice.setText("");
 										txtNamenaCetkice.setText("");
 										txtBojaCetkice.setText("");
@@ -1004,7 +1017,7 @@ class MainFrame extends JFrame{
 							add(statusBar, BorderLayout.SOUTH);
 				}
 			}
-	/*	 public class SimpleDialogSoftver1 extends JDialog{
+		 public class SimpleDialogSoftver1 extends JDialog{
 
 			
 				private static final long serialVersionUID = 1L;
@@ -1023,28 +1036,23 @@ class MainFrame extends JFrame{
 							statusBar.setBackground(Color.LIGHT_GRAY);
 							statusBar.setPreferredSize(new Dimension(100, 30));
 							
-							String textFieldP = (String) model2.getValueAt(table2.getSelectedRow(),0); 
-							String textFieldI = (String) model2.getValueAt(table2.getSelectedRow(),1); 
-							String textFieldJ = (String) model2.getValueAt(table2.getSelectedRow(),2); 
-							String textFieldJ = (String) model2.getValueAt(table2.getSelectedRow(),2);
-							String textFieldJ = (String) model2.getValueAt(table2.getSelectedRow(),2);
-							
-							String textFieldDR = (String) model2.getValueAt(table2.getSelectedRow(),3); 
-							String textFieldE = (String) model2.getValueAt(table2.getSelectedRow(),4); 
-							//String textFieldA = (String) model1.getValueAt(table1.getSelectedRow(),3); 
-							//String textFieldAl = (String) model1.getValueAt(table1.getSelectedRow(),4); 
-							String textFieldRM = (String) model2.getValueAt(table2.getSelectedRow(),5); 
-							txtNazivSoftvera.setText(textFieldP);
-							txtCetkice.setText(textFieldI);
-							txtNazivCetkice.setText(textFieldI);
-							txtNamenaCetkice.setText(textFieldI);
-							txtBojaCetkice.setText(textFieldI);
-							txtModifikatori.setText(textFieldJ);
-							txtFormatFajla.setText(textFieldDR);
-							txtAlatizaAnimaciju.setText(textFieldE);
-							//txtRender.setText(textFieldA);
-							//txtAlati.setText(textFieldAl);
-							txtRender.setText(textFieldRM);
+							String textFieldS = (String) model2.getValueAt(table2.getSelectedRow(),0); 
+							String textFieldNazivCetkica = (String) model2.getValueAt(table2.getSelectedRow(),1); 
+							String textFieldJNamenaCetkica = (String) model2.getValueAt(table2.getSelectedRow(),2); 
+							String textFieldBojaCetkica = (String) model2.getValueAt(table2.getSelectedRow(),3);
+							String textFieldM = (String) model2.getValueAt(table2.getSelectedRow(),4);
+							String textFieldFF = (String) model2.getValueAt(table2.getSelectedRow(),5); 
+							String textFieldAA = (String) model2.getValueAt(table2.getSelectedRow(),6); 
+							String textFieldR = (String) model2.getValueAt(table2.getSelectedRow(),7); 
+							txtNazivSoftvera.setText(textFieldS);
+							//txtCetkice.setText(textFieldI);
+							txtNazivCetkice.setText(textFieldNazivCetkica);
+							txtNamenaCetkice.setText(textFieldJNamenaCetkica);
+							txtBojaCetkice.setText(textFieldBojaCetkica);
+							txtModifikatori.setText(textFieldM);
+							txtFormatFajla.setText(textFieldFF);
+							txtAlatizaAnimaciju.setText(textFieldAA);
+							txtRender.setText(textFieldR);
 							
 							
 							
@@ -1053,19 +1061,19 @@ class MainFrame extends JFrame{
 							btnOk.setPreferredSize(new Dimension(75,25));
 							btnOk.addActionListener (new ActionListener () {
 								 public void actionPerformed (ActionEvent e) {
-									 int index=-1;
+									int index=-1;
 										try {
-											 System.out.println(textFieldJ);
+											 System.out.println(textFieldS);
 
-											index=kontroler1.getSoftver(textFieldJ);
+											index=kontroler1.getSoftverByName(textFieldS);
 										} catch (Exception e1) {
 											// TODO Auto-generated catch block
 											e1.printStackTrace();
 										}
 									 
 									 
-									 String softverdata = txtNazivSoftvera.getText();
-										String cetkiceData = txtCetkice.getText();
+										String softverdata = txtNazivSoftvera.getText();
+										//String cetkiceData = txtCetkice.getText();
 										String nazivcetkiceData = txtNazivCetkice.getText();
 										String namenacetkiceData = txtNamenaCetkice.getText();
 										String bojacetkiceData = txtBojaCetkice.getText();
@@ -1074,8 +1082,8 @@ class MainFrame extends JFrame{
 										String alatizaanimacijuData = txtAlatizaAnimaciju.getText();
 										String renderData = txtRender.getText();
 										
-										
-										Softver Softver = new Softver (softverdata,new Cetkica(), modifikatoriData, formatfajlaRData, alatizaanimacijuData,new Render());
+										Cetkica c=new Cetkica(nazivcetkiceData,namenacetkiceData,bojacetkiceData);
+										Softver Softver = new Softver (softverdata,c, modifikatoriData, formatfajlaRData, alatizaanimacijuData,new Render());
 										
 										 try {
 											kontroler1.addSoftver(Softver);
@@ -1085,34 +1093,29 @@ class MainFrame extends JFrame{
 										}
 										 System.out.println(kontroler1.getAllsoftveri());
 										 
-										
-										 
 											 
-											 model1.setValueAt(Softver.getSoftver(),index, 0);
-											 model1.setValueAt(Softver.getCetkica(), index, 1);	
-											 // model1.setValueAt(Softver.getCetkica(), index, 1);
-											 // model1.setValueAt(Softver.getCetkica(), index, 1);
-											 // model1.setValueAt(Softver.getCetkica(), index, 1);
-											 model1.setValueAt(Softver.getModifikator(), index, 2);
-											 model1.setValueAt(Softver.getFormatFajla(), index, 3);
-											 model1.setValueAt(Softver.getAlati(), index, 4);
-											 model1.setValueAt(Softver.getRender(), index, 5);
-											
+											 model2.setValueAt(Softver.getNaziv(), kontroler1.getAllsoftveri().size()-1, 0);
+											// model2.setValueAt(Softver.getCetkica(), kontroler1.getAllsoftveri().size()-1, 1);
+											 model2.setValueAt(c.getNaziv(), kontroler1.getAllsoftveri().size()-1, 1);
+											 model2.setValueAt(c.getNamena(), kontroler1.getAllsoftveri().size()-1, 2);
+											 model2.setValueAt(c.getBoja(), kontroler1.getAllsoftveri().size()-1, 3);
+											 model2.setValueAt(Softver.getModifikator(), kontroler1.getAllsoftveri().size()-1, 4);
+											 model2.setValueAt(Softver.getFormat(), kontroler1.getAllsoftveri().size()-1, 5);
+											 model2.setValueAt(Softver.getAlat(), kontroler1.getAllsoftveri().size()-1, 6);
+											 model2.setValueAt(Softver.getRender(), kontroler1.getAllsoftveri().size()-1, 7);
 											 try {
-												kontroler.updateradnik(radnik, textFieldJ);
-											} catch (Exception e1) {
-												// TODO Auto-generated catch block
-												e1.printStackTrace();
-											}
+													kontroler1.updateSoftver(Softver, textFieldS);
+												} catch (Exception e1) {
+													// TODO Auto-generated catch block
+													e1.printStackTrace();
+												}
 
-											 System.out.println(kontroler.getAllZaposleni());
-                                          
-											 
-											 
+												 System.out.println(kontroler1.getAllsoftveri());
+											
 											 
 										dispose();
 										txtNazivSoftvera.setText("");
-										txtCetkice.setText("");
+										//txtCetkice.setText("");
 										txtNazivCetkice.setText("");
 										txtNamenaCetkice.setText("");
 										txtBojaCetkice.setText("");
@@ -1142,7 +1145,7 @@ class MainFrame extends JFrame{
 							add(panCentar, BorderLayout.CENTER);
 							add(statusBar, BorderLayout.SOUTH);
 				}
-			}*/
+			}
 }
 	
 

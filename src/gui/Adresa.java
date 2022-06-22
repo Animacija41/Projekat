@@ -1,17 +1,17 @@
 package gui;
 public class Adresa {
 		private String ulica;
-		private int broj;
+		private String broj;
 		private String grad;
 	
 		
 		public Adresa() {
 			this.ulica = "";
-			this.broj = 0;
+			this.broj = "";
 			this.grad = "";
 		}
 		
-		public Adresa(String ulica, int broj, String grad) {
+		public Adresa(String ulica, String broj, String grad) {
 			this.ulica = ulica;
 			this.broj = broj;
 			this.grad = grad;
@@ -24,10 +24,10 @@ public class Adresa {
 			this.ulica = ulica;
 		}
 		
-		public int getBroj() {
+		public String getBroj() {
 			return this.broj;
 		}
-		public void setBroj(int broj) {
+		public void setBroj(String broj) {
 			this.broj = broj;
 		}
 		

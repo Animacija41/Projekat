@@ -47,32 +47,32 @@ public class SoftverKontroler {
         return Softver;
     }
     
-  ///  public Softver updateSoftver(Softver Softver) throws Exception {
-   // 	Softver SoftverCurrent = softveri.stream().filter(el -> (name.equals(el.getName()))).findAny().orElse(null);
-  //      int index = Softver.indexOf(SoftverCurrent);
+    public Softver updateSoftver(Softver Softver, String name) throws Exception {
+    	Softver SoftverCurrent = softveri.stream().filter(el -> (name.equals(el.getNaziv()))).findAny().orElse(null);
+        int index = softveri.indexOf(SoftverCurrent);
         
-  //      if (index < 0) {
-   //         throw new Exception("Not found");
-  //      }
+        if (index < 0) {
+            throw new Exception("Not found");
+        }
         
-  //      softveri.set(index, Softver);
+        softveri.set(index, Softver);
         
-  //      return Softver;
-  //  }
+        return Softver;
+    }
     
      public void removeSoftver(String name) throws Exception {
         softveri.removeIf(el -> name.equals(el.getNaziv()));
     }
-  //   public int getSoftverByName(String name) throws Exception
-   //  {
-   // 	 Softver SoftverCurrent = softveri.stream().filter(el -> (name.equals(el.getName()))).findAny().orElse(null);
-	//	 System.out.println(SoftverCurrent);
+     public int getSoftverByName(String name) throws Exception
+     {
+   	 Softver SoftverCurrent = softveri.stream().filter(el -> (name.equals(el.getNaziv()))).findAny().orElse(null);
+		 System.out.println(SoftverCurrent);
 
-   //      int index = Softver.indexOf(SoftverCurrent);
+        int index = softveri.indexOf(SoftverCurrent);
 
-   //      if (index < 0) {
-   //          throw new Exception("Not found");
-   //      }
-   //      return index;
-  //   }
+         if (index < 0) {
+             throw new Exception("Not found");
+         }
+         return index;
+     }
 }

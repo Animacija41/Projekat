@@ -16,6 +16,11 @@ public class Softver {
 		this.render = new Render();
 	}
 	
+	public Softver(String naziv) 
+	{
+		this.naziv=naziv;
+	}
+	
 	public Softver(String naziv, Cetkica cetkica, String modifikator, String format, String alat, Render render) {
 		this.naziv = naziv;
 		this.cetkica = cetkica;
