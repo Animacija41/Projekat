@@ -35,6 +35,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EtchedBorder;
@@ -61,19 +62,12 @@ class MainFrame extends JFrame{
 	private JTextField txtDatumRodjenja=new JTextField();
 	private JTextField txtJMBG=new JTextField();
 	private JTextField txtRadnoMesto = new JTextField();
-	private String prezimeData;
-	private String imeData;
-	private String jmbgData;
-	private String datumRData;
-	private String emailData;
-	private String adresaData;
-	private String alatiData;
-	private String radnoMestoData;
 	private DefaultTableModel model1 = new DefaultTableModel(100,8);
 	private DefaultTableModel model2 = new DefaultTableModel(100,6);
 	private JTable table1 = new JTable(model1);
 	private JTable table2 = new JTable(model2);
-	
+	JTabbedPane tabs=new JTabbedPane();
+
 	ZaposleniKontroler kontroler=new ZaposleniKontroler();
 	public MainFrame() {
 		 Toolkit kit = Toolkit.getDefaultToolkit();
@@ -113,11 +107,12 @@ class MainFrame extends JFrame{
 			 getContentPane().add(MyStratusBar,BorderLayout.SOUTH);
 			 
 			 table1.setDefaultEditor(Object.class, null);
+			 table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			 table2.setDefaultEditor(Object.class, null);
-			 JTabbedPane tabs=new JTabbedPane();
+			 table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			 	tabs=new JTabbedPane();
 		  		tabs.addTab("zaposleni",null,table1);
 		  		tabs.addTab("softver",null,table2);
-		  		
 		  		add(tabs);
 		 }
 	
@@ -282,7 +277,7 @@ class MainFrame extends JFrame{
 							 public void actionPerformed (ActionEvent e) {
 								 String prezimeData = txtPrezime.getText();
 									String imeData = txtIme.getText();
-									String jmbgData = (txtJMBG.getText());
+									String jmbgData = txtJMBG.getText();
 									String datumRData = txtDatumRodjenja.getText();
 									String emailData = txtEmail.getText();
 									String adresaData = txtAdresa.getText();
@@ -411,11 +406,39 @@ class MainFrame extends JFrame{
 				
 
 				JMenuItem miedit = new JMenuItem("Edit");
+				//boolean isSelected1=table1.getSelectionModel().isSelectionEmpty();
+				//boolean isSelected2=table2.getSelectionModel().isSelectionEmpty();
+				miedit.addActionListener (new ActionListener () {
+					 public void actionPerformed (ActionEvent e) {
+						// if (isSelected1==false) 
+						//{
+							 SimpleDialogZaposleni1 dialog = new SimpleDialogZaposleni1(parent, "Dialog Zaposleni", true);
+							 dialog.setVisible(true);
+							
+						// }
+						//else if(isSelected2==false) 
+						// {
+						//	SimpleDialogSoftver dialog = new SimpleDialogSoftver(parent, "Dialog Softver", true);
+						//	dialog.setVisible(true);
+						//}
+						
+					 }
+					
+				});
 				JMenuItem midelete = new JMenuItem("Delete");
 				midelete.addActionListener (new ActionListener () {
 					 public void actionPerformed (ActionEvent e) {
-						DialogDelete dijalog=new DialogDelete(parent, true);
+						 if (tabs.getSelectedIndex()==0) 
+						 {
+							 DialogDelete dijalog=new DialogDelete(parent, true);
+						 }
+						else if(tabs.getSelectedIndex()==1) 
+						 {
+							 DialogDelete2 dijalog2=new DialogDelete2(parent, true);
+						 }
+						
 					 }
+					
 				});
 				edit.add(miedit);
 				edit.addSeparator();
@@ -479,17 +502,48 @@ class MainFrame extends JFrame{
 					}
 				});
 
-				JButton btnOpen = new JButton();
-				btnOpen.setToolTipText("Open");
-				btnOpen.setIcon(new ImageIcon("ikonice/editing.png"));
-				add(btnOpen);
+				JButton btnEdit = new JButton();
+				btnEdit.setToolTipText("Edit");
+				btnEdit.setIcon(new ImageIcon("ikonice/editing.png"));
+				btnEdit.addActionListener (new ActionListener () {
+					 public void actionPerformed (ActionEvent e) {
+						// if (isSelected1==false) 
+						//{
+							 SimpleDialogZaposleni1 dialog = new SimpleDialogZaposleni1(parent, "Dialog Zaposleni", true);
+							 dialog.setVisible(true);
+							
+						// }
+						//else if(isSelected2==false) 
+						// {
+						//	SimpleDialogSoftver dialog = new SimpleDialogSoftver(parent, "Dialog Softver", true);
+						//	dialog.setVisible(true);
+						//}
+						
+					 }
+					
+				});
+				add(btnEdit);
 
 				addSeparator();
 
-				JToggleButton tglBtnDelete = new JToggleButton();
-				tglBtnDelete.setToolTipText("Delete");
-				tglBtnDelete.setIcon(new ImageIcon("ikonice/recycle-bin.png"));
-				add(tglBtnDelete);
+				JButton BtnDelete = new JButton();
+				BtnDelete.setToolTipText("Delete");
+				BtnDelete.setIcon(new ImageIcon("ikonice/recycle-bin.png"));
+				BtnDelete.addActionListener (new ActionListener () {
+					 public void actionPerformed (ActionEvent e) {
+						// if (isSelected1==false && isSelected2==true) 
+						// {
+							 DialogDelete dijalog=new DialogDelete(parent, true);
+						// }
+						//else if(isSelected2==false && isSelected1==true) 
+						// {
+						//	 DialogDelete2 dijalog2=new DialogDelete2(parent, true);
+						// }
+						
+					 }
+					
+				});
+				add(BtnDelete);
 
 				// toolbar je pokretljiv, probati i sa staticnim toolbarom
 				setFloatable(true);
@@ -501,18 +555,153 @@ class MainFrame extends JFrame{
 			public DialogDelete(final JFrame parent, boolean modal) {
 				setSize(100, 200);
 				setLocationRelativeTo(parent);
-				int dijalog= JOptionPane.showConfirmDialog(parent, "Da li ste sigurni da zelite da obrisete zaposlenog/softver?", "Confirm Deletion",  JOptionPane.OK_CANCEL_OPTION);
+				int dijalog= JOptionPane.showConfirmDialog(parent, "Da li ste sigurni da zelite da obrisete zaposlenog?", "Confirm Deletion",  JOptionPane.OK_CANCEL_OPTION);
+				String jmbg=table1.getValueAt(table1.getSelectedRow(),2).toString();		//getvalueat vraca text iz jmbg polja, index polja je 2
+			
 				if (dijalog != JOptionPane.OK_OPTION) {
 					parent.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-				} else {
+				} else
 					
 						model1.removeRow(table1.getSelectedRow());
-						
-						
-					 
+				try {
+					kontroler.removeradnik(jmbg);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+						
 			}
 		}
+	public class DialogDelete2 extends JOptionPane{
+			public DialogDelete2(final JFrame parent, boolean modal) {
+				setSize(100, 200);
+				setLocationRelativeTo(parent);
+				int dijalog2= JOptionPane.showConfirmDialog(parent, "Da li ste sigurni da zelite da obrisete softver?", "Confirm Deletion",  JOptionPane.OK_CANCEL_OPTION);
+				
+				
+				if (dijalog2 != JOptionPane.OK_OPTION) {
+					parent.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+				} else
+					model2.removeRow(table2.getSelectedRow());
+					
+			
+			}
+		}
+		 public class SimpleDialogZaposleni1 extends JDialog {
+				private static final long serialVersionUID = 3591599721565020284L;
+
+				public SimpleDialogZaposleni1(Frame parent, String title, boolean modal) {
+					super(parent, title, modal);
+
+					setSize(300, 400);
+					setLocationRelativeTo(parent);
+
+					JPanel panCentar = new JPanel();
+					// Primeri koriscenja Focus Listenera
+							JPanel panZaposleniPanel = new ZaposleniPanel();
+							panCentar.add(panZaposleniPanel);
+							
+							JPanel statusBar = new JPanel();
+							statusBar.setBackground(Color.LIGHT_GRAY);
+							statusBar.setPreferredSize(new Dimension(100, 30));
+							
+							String textFieldP = (String) model1.getValueAt(table1.getSelectedRow(),0); 
+							String textFieldI = (String) model1.getValueAt(table1.getSelectedRow(),1); 
+							String textFieldJ = (String) model1.getValueAt(table1.getSelectedRow(),2); 
+							String textFieldDR = (String) model1.getValueAt(table1.getSelectedRow(),3); 
+							String textFieldE = (String) model1.getValueAt(table1.getSelectedRow(),4); 
+							//String textFieldA = (String) model1.getValueAt(table1.getSelectedRow(),5); 
+							//String textFieldAl = (String) model1.getValueAt(table1.getSelectedRow(),6); 
+							String textFieldRM = (String) model1.getValueAt(table1.getSelectedRow(),7); 
+							txtPrezime.setText(textFieldP);
+							txtIme.setText(textFieldI);
+							txtJMBG.setText(textFieldJ);
+							txtDatumRodjenja.setText(textFieldDR);
+							txtEmail.setText(textFieldE);
+							//txtAdresa.setText(textFieldA);
+							//txtAlati.setText(textFieldAl);
+							txtRadnoMesto.setText(textFieldRM);
+						
+							JButton btnOk=new JButton("Ok");
+							btnOk.setPreferredSize(new Dimension(75,25));
+							btnOk.addActionListener (new ActionListener () {
+								 public void actionPerformed (ActionEvent e) {
+									 int index=-1;
+										try {
+											 System.out.println(textFieldJ);
+
+											index=kontroler.getRadnikByJMBG(textFieldJ);
+										} catch (Exception e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+										
+									 String prezimeData = txtPrezime.getText();
+										String imeData = txtIme.getText();
+										String jmbgData = (txtJMBG.getText());
+										String datumRData = txtDatumRodjenja.getText();
+										String emailData = txtEmail.getText();
+										String adresaData = txtAdresa.getText();
+										String alatiData = txtAlati.getText();
+										String radnoMestoData = txtRadnoMesto.getText();
+										
+										Zaposleni radnik = new Zaposleni(prezimeData, imeData, jmbgData, datumRData, emailData, new Adresa(), new Softver(), radnoMestoData);
+										
+										
+										 System.out.println(kontroler.getAllZaposleni());
+										 
+											 
+											 model1.setValueAt(radnik.getIme(),index, 0);
+											 model1.setValueAt(radnik.getPrezime(), index, 1);	
+											 model1.setValueAt(radnik.getJMBG(), index, 2);
+											 model1.setValueAt(radnik.getDatum(), index, 3);
+											 model1.setValueAt(radnik.getEmail(), index, 4);
+											 model1.setValueAt(radnik.getAdresa(), index, 5);
+											 model1.setValueAt(radnik.getSoftver(), index, 6);
+											 model1.setValueAt(radnik.getRadnoMesto(), index, 7);
+											 try {
+												kontroler.updateradnik(radnik, textFieldJ);
+											} catch (Exception e1) {
+												// TODO Auto-generated catch block
+												e1.printStackTrace();
+											}
+
+											 System.out.println(kontroler.getAllZaposleni());
+											 
+										dispose();
+										
+										txtPrezime.setText("");
+										txtIme.setText("");
+										txtJMBG.setText("");
+										txtDatumRodjenja.setText("");
+										txtEmail.setText("");
+										txtAdresa.setText("");
+										txtAlati.setText("");
+										txtRadnoMesto.setText("");
+										
+										
+									 
+								 
+								 }
+							});
+
+							JButton btnCancel=new JButton("Cancel");
+							btnCancel.addActionListener (new ActionListener () {
+								 public void actionPerformed (ActionEvent e) {
+									dispose();
+								 }
+							});
+							btnCancel.setPreferredSize(new Dimension(75,25));
+							statusBar.add(btnOk);
+							
+							statusBar.add(btnCancel); 
+							
+							
+							add(panCentar, BorderLayout.CENTER);
+							add(statusBar, BorderLayout.SOUTH);
+				}
+			}
+	
 }
 	
 

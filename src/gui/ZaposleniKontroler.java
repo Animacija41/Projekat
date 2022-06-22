@@ -47,9 +47,9 @@ public class ZaposleniKontroler {
         return radnik;
     }
     
-    public Zaposleni updateradnik(Zaposleni radnik) throws Exception {
-    	Zaposleni radnikCurrent = Zaposleni.stream().filter(el -> (radnik.getJMBG().equals(el.getJMBG()))).findAny().orElse(null);
-        int index = IntStream.range(0, Zaposleni.size()).filter(idx -> Zaposleni.get(idx).getJMBG().equals(radnik.getJMBG())).findFirst().orElse(-1);
+    public Zaposleni updateradnik(Zaposleni radnik, String jmbg) throws Exception {
+    	Zaposleni radnikCurrent = Zaposleni.stream().filter(el -> (jmbg.equals(el.getJMBG()))).findAny().orElse(null);		//uzimamo entitet radnika iz liste 
+    	 int index = Zaposleni.indexOf(radnikCurrent);																		//uzima tacnu poziciju radnika u listi 
         
         if (index < 0) {
             throw new Exception("Not found");
@@ -63,5 +63,18 @@ public class ZaposleniKontroler {
      public void removeradnik(String jmbg) throws Exception {
         Zaposleni.removeIf(el -> jmbg.equals(el.getJMBG()));
     }
+     
+     public int getRadnikByJMBG(String jmbg) throws Exception
+     {
+    	 Zaposleni radnikCurrent = Zaposleni.stream().filter(el -> (jmbg.equals(el.getJMBG()))).findAny().orElse(null);
+		 System.out.println(radnikCurrent);
+
+         int index = Zaposleni.indexOf(radnikCurrent);
+
+         if (index < 0) {
+             throw new Exception("Not found");
+         }
+         return index;
+     }
 
 }
